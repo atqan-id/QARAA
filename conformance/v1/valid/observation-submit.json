@@ -1,0 +1,17 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-observation",
+  "type": "observation.submit",
+  "sessionId": "session-1",
+  "observationId": "observation-stream-1",
+  "sourceRevision": 1,
+  "isFinal": false,
+  "receivedAtMs": 1500,
+  "tokens": [
+    {
+      "id": "token-stream-1",
+      "text": "بِسْمِ",
+      "phonemes": ["bi", "s", "mi"]
+    }
+  ]
+}

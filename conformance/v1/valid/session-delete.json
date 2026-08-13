@@ -1,0 +1,6 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-delete",
+  "type": "session.delete",
+  "sessionId": "session-1"
+}

@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "paths": {
+      "@atqan/qaraa-client": ["./dist/index.d.mts"],
+      "@atqan/qaraa-core": ["../core/src/index.ts"],
+      "@atqan/qaraa-protocol": ["../protocol/src/index.ts"]
+    },
+    "skipLibCheck": false,
+    "types": []
+  },
+  "include": ["type-contract/**/*.ts"]
+}

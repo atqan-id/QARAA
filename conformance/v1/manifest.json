@@ -1,0 +1,77 @@
+[
+  { "file": "valid/minimal-corpus.json", "schema": "corpus", "valid": true },
+  { "file": "valid/unicode-quran.json", "schema": "corpus", "valid": true },
+  { "file": "valid/corpus-unused-symbol.json", "schema": "corpus", "valid": true },
+  { "file": "valid/partial-observation.json", "schema": "observation", "valid": true },
+  { "file": "valid/final-observation.json", "schema": "observation", "valid": true },
+  { "file": "valid/reading-snapshot.json", "schema": "snapshot", "valid": true },
+  { "file": "valid/session-create.json", "schema": "command", "valid": true },
+  { "file": "valid/session-get.json", "schema": "command", "valid": true },
+  { "file": "valid/session-reset.json", "schema": "command", "valid": true },
+  { "file": "valid/session-delete.json", "schema": "command", "valid": true },
+  { "file": "valid/observation-submit.json", "schema": "command", "valid": true },
+  { "file": "valid/session-resume.json", "schema": "command", "valid": true },
+  { "file": "valid/session-created-event.json", "schema": "event", "valid": true },
+  { "file": "valid/snapshot-updated-event.json", "schema": "event", "valid": true },
+  { "file": "valid/session-deleted-event.json", "schema": "event", "valid": true },
+  {
+    "file": "valid/error-envelope.json",
+    "schema": "event",
+    "valid": true,
+    "errorCode": "INVALID_OBSERVATION"
+  },
+  {
+    "file": "valid/error-invalid-corpus.json",
+    "schema": "error",
+    "valid": true,
+    "errorCode": "INVALID_CORPUS"
+  },
+  {
+    "file": "valid/error-stale-revision.json",
+    "schema": "error",
+    "valid": true,
+    "errorCode": "STALE_REVISION"
+  },
+  {
+    "file": "valid/error-unsupported-protocol.json",
+    "schema": "error",
+    "valid": true,
+    "errorCode": "UNSUPPORTED_PROTOCOL"
+  },
+  {
+    "file": "valid/error-session-not-found.json",
+    "schema": "error",
+    "valid": true,
+    "errorCode": "SESSION_NOT_FOUND"
+  },
+  {
+    "file": "valid/error-internal.json",
+    "schema": "error",
+    "valid": true,
+    "errorCode": "INTERNAL_ERROR"
+  },
+  {
+    "file": "invalid/malformed-timestamps.json",
+    "schema": "observation",
+    "valid": false,
+    "errorCode": "INVALID_OBSERVATION"
+  },
+  {
+    "file": "invalid/negative-revision.json",
+    "schema": "observation",
+    "valid": false,
+    "errorCode": "INVALID_OBSERVATION"
+  },
+  {
+    "file": "invalid/unsupported-protocol.json",
+    "schema": "command",
+    "valid": false,
+    "errorCode": "UNSUPPORTED_PROTOCOL"
+  },
+  {
+    "file": "invalid/missing-required-field.json",
+    "schema": "corpus",
+    "valid": false,
+    "errorCode": "INVALID_CORPUS"
+  }
+]

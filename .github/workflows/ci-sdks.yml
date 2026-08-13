@@ -1,0 +1,191 @@
+name: Native SDKs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'sdk/**'
+      - 'examples/fastapi/**'
+      - 'examples/go-server/**'
+      - 'examples/flutter/**'
+      - 'conformance/**'
+      - 'packages/protocol/**'
+      - 'packages/server/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'docs/sdks.md'
+      - '.github/workflows/ci-sdks.yml'
+
+jobs:
+  python:
+    strategy:
+      matrix:
+        python: ['3.10', '3.11', '3.12', '3.13', '3.14']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '${{ matrix.python }}'
+      - run: python -m pip install -e '.[test]'
+        working-directory: sdk/python
+      - run: pytest -q
+        working-directory: sdk/python
+
+  fastapi:
+    strategy:
+      matrix:
+        python: ['3.10', '3.14']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '${{ matrix.python }}'
+      - run: python -m pip install -e sdk/python -e 'examples/fastapi[test]'
+      - run: pytest -q
+        working-directory: examples/fastapi
+
+  go:
+    strategy:
+      matrix:
+        go: ['1.24.x', '1.25.x', '1.26.x']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '${{ matrix.go }}'
+      - run: go test ./...
+        working-directory: sdk/go
+      - run: go test ./... -race
+        if: matrix.go == '1.26.x'
+        working-directory: sdk/go
+      - run: go vet ./...
+        working-directory: sdk/go
+
+  go-example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+      - run: go test ./... -race
+        working-directory: examples/go-server
+      - run: go vet ./...
+        working-directory: examples/go-server
+
+  dart:
+    strategy:
+      matrix:
+        dart: ['3.10.0', '3.12.0']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '${{ matrix.dart }}'
+      - run: dart pub get
+        working-directory: sdk/dart
+      - run: dart format --output=none --set-exit-if-changed lib test tool
+        working-directory: sdk/dart
+      - run: dart analyze --fatal-infos
+        working-directory: sdk/dart
+      - run: dart test
+        working-directory: sdk/dart
+
+  flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          cache: true
+      - run: flutter pub get
+        working-directory: examples/flutter
+      - run: dart format --output=none --set-exit-if-changed lib test
+        working-directory: examples/flutter
+      - name: Analyze Flutter example
+        shell: bash
+        run: |
+          if ! output="$(flutter analyze 2>&1)"; then
+            while IFS= read -r line; do
+              echo "::error title=Flutter analyzer::${line}"
+            done <<< "${output}"
+            exit 1
+          fi
+          printf '%s\n' "${output}"
+        working-directory: examples/flutter
+      - run: flutter test
+        working-directory: examples/flutter
+      - run: flutter build web --release
+        working-directory: examples/flutter
+
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+        with:
+          version: '11.21.0'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '26'
+          cache: pnpm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.12.0'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Start actual TypeScript conformance server smoke
+        run: node scripts/serve-conformance-server.mjs --shutdown-after-ms 250
+      - run: python -m pip install -e sdk/python
+      - run: python scripts/smoke-python-actual-server.py
+      - run: go run ./cmd/server-smoke ../..
+        working-directory: sdk/go
+      - run: dart pub get
+        working-directory: sdk/dart
+      - run: dart run tool/server_smoke.dart ../..
+        working-directory: sdk/dart
+      - run: mkdir -p .conformance-results
+      - run: node scripts/generate-js-conformance-result.mjs .conformance-results/typescript.json
+      - run: python -m qaraa.conformance conformance/v1 .conformance-results/python.json
+      - run: go run ./cmd/conformance ../../conformance/v1 ../../.conformance-results/go.json
+        working-directory: sdk/go
+      - run: dart run tool/conformance.dart ../../conformance/v1 ../../.conformance-results/dart.json
+        working-directory: sdk/dart
+      - run: node scripts/compare-conformance-results.mjs .conformance-results/*.json
+
+  package-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.12.0'
+      - run: python -m pip install build twine
+      - run: python -m build
+        working-directory: sdk/python
+      - run: python -m twine check dist/*
+        working-directory: sdk/python
+      - run: node --test scripts/audit-native-packages.test.mjs scripts/ci-native-smoke.test.mjs
+      - run: rm -rf sdk/python/dist
+      - run: node scripts/audit-native-packages.mjs --source-only

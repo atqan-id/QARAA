@@ -1,0 +1,57 @@
+name: QARAA core CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    name: Node ${{ matrix.node }} release gate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Verify primary compiler
+        run: test "$(pnpm exec tsc --version)" = "Version 7.0.2"
+      - name: Build ESM, CommonJS, and declarations
+        run: pnpm build
+      - name: Audit package and source boundaries
+        run: pnpm run audit
+      - name: Audit production dependency advisories
+        run: pnpm audit --prod --audit-level high
+      - name: Type-check source and consumer contracts
+        run: pnpm check
+      - name: Unit tests
+        run: pnpm --workspace-concurrency=1 -r test
+      - name: Protocol conformance
+        run: pnpm test:conformance
+      - name: Packed consumer smoke
+        run: pnpm test:release
+
+  typescript-6-tooling:
+    name: TypeScript 6 compiler-API audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Verify compatibility compiler
+        run: test "$(pnpm exec tsc6 --version)" = "Version 6.0.2"
+      - name: Run compiler-API boundary tooling only
+        run: node scripts/audit-boundaries.mjs

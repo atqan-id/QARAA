@@ -1,0 +1,21 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../.aot-consumer",
+    "rootDir": ".",
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "experimentalDecorators": true,
+    "lib": ["ES2022", "DOM"],
+    "paths": {
+      "@atqan/qaraa-angular": ["../../dist"]
+    }
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "full",
+    "strictTemplates": true,
+    "strictInjectionParameters": true
+  },
+  "files": ["consumer.ts"]
+}

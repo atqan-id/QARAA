@@ -1,0 +1,26 @@
+{
+  "corpusId": "unicode-quran",
+  "revision": "unicode-1",
+  "symbols": [
+    {
+      "id": "s:1:1:1:1",
+      "text": "بِ",
+      "phoneme": "bi",
+      "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 }
+    },
+    {
+      "id": "s:1:1:1:2",
+      "text": "سۡ",
+      "phoneme": "s",
+      "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 2 }
+    }
+  ],
+  "words": [
+    {
+      "id": "w:1:1:1",
+      "text": "بِسۡمِ",
+      "symbolIds": ["s:1:1:1:1", "s:1:1:1:2"],
+      "location": { "surah": 1, "ayah": 1, "word": 1 }
+    }
+  ]
+}

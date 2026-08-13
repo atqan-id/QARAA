@@ -1,0 +1,10 @@
+{
+  "license": "Apache-2.0",
+  "fixtureKind": "synthetic",
+  "fixtureId": "repeated-phrase",
+  "phrase": ["repeat-a", "repeat-b", "repeat-c", "repeat-d"],
+  "repeatCount": 1024,
+  "ayahSize": 256,
+  "initialSymbol": 2048,
+  "observationPhonemeCount": 12
+}

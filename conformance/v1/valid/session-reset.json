@@ -1,0 +1,7 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-reset",
+  "type": "session.reset",
+  "sessionId": "session-1",
+  "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 }
+}

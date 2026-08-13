@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:protocol:v1:error",
+  "title": "QARAA Error Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocolVersion",
+    "requestId",
+    "type",
+    "code",
+    "message",
+    "retryable",
+    "details"
+  ],
+  "properties": {
+    "protocolVersion": { "const": 1 },
+    "requestId": { "type": "string", "pattern": "\\S" },
+    "type": { "const": "error" },
+    "code": {
+      "enum": [
+        "INVALID_CORPUS",
+        "INVALID_OBSERVATION",
+        "STALE_REVISION",
+        "UNSUPPORTED_PROTOCOL",
+        "SESSION_NOT_FOUND",
+        "INTERNAL_ERROR"
+      ]
+    },
+    "message": { "type": "string" },
+    "retryable": { "type": "boolean" },
+    "details": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/jsonValue" }
+    }
+  },
+  "$defs": {
+    "jsonValue": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "boolean" },
+        { "type": "number" },
+        { "type": "string" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/$defs/jsonValue" }
+        },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/jsonValue" }
+        }
+      ]
+    }
+  }
+}

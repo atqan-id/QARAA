@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "paths": {
+      "@atqan/qaraa-core": ["../core/src/index.ts"],
+      "@atqan/qaraa-sherpa-onnx": ["./dist/index.d.mts"]
+    },
+    "skipLibCheck": false,
+    "types": []
+  },
+  "include": ["type-contract/**/*.ts"]
+}

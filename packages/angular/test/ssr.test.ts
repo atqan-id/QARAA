@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; test('exports an SSR-safe service without connecting or JIT compiler',async()=>{const {QaraaSessionService}=await import('../dist/fesm2022/atqan-qaraa-angular.mjs');assert.equal(typeof QaraaSessionService,'function');});

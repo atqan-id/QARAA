@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": ".full",
+    "declarationDir": ".full",
+    "declarationMap": false,
+    "sourceMap": false,
+    "inlineSources": false
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "full",
+    "strictTemplates": true,
+    "strictInjectionParameters": true
+  }
+}

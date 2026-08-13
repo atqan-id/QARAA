@@ -1,0 +1,1 @@
+{"name":"@atqan/qaraa-example-node","private":true,"type":"module","scripts":{"build":"tsc --noEmit","test":"node --test test/*.test.ts"},"dependencies":{"@atqan/qaraa-server":"workspace:*","@atqan/qaraa-example-fixture":"workspace:*"}}

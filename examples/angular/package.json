@@ -1,0 +1,1 @@
+{"name":"@atqan/qaraa-example-angular","private":true,"type":"module","scripts":{"build":"ngc -p tsconfig.app.json","test":"node --test test/*.test.ts"},"dependencies":{"@atqan/qaraa-angular":"workspace:*","@atqan/qaraa-client":"workspace:*","@atqan/qaraa-example-fixture":"workspace:*"}}

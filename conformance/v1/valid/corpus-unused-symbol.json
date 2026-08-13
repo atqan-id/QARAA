@@ -1,0 +1,11 @@
+{
+  "corpusId": "unused-symbol-valid",
+  "revision": "1",
+  "symbols": [
+    { "id": "s-used", "text": "بِ", "phoneme": "bi", "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 } },
+    { "id": "s-unused", "text": "سْ", "phoneme": "s", "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 2 } }
+  ],
+  "words": [
+    { "id": "w-1", "text": "بِ", "symbolIds": ["s-used"], "location": { "surah": 1, "ayah": 1, "word": 1 } }
+  ]
+}

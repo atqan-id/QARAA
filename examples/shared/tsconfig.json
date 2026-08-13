@@ -1,0 +1,1 @@
+{"extends":"../../tsconfig.base.json","compilerOptions":{"rootDir":".","allowImportingTsExtensions":true,"paths":{"@atqan/qaraa-client":["../../packages/client/dist"]}},"include":["src/**/*.ts"]}

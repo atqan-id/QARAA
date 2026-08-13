@@ -1,0 +1,13 @@
+{
+  "observationId": "observation-negative-revision",
+  "sourceRevision": -1,
+  "isFinal": false,
+  "receivedAtMs": 1000,
+  "tokens": [
+    {
+      "id": "token-1",
+      "text": "بِ",
+      "phonemes": ["bi"]
+    }
+  ]
+}

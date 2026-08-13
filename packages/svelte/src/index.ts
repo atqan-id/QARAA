@@ -1,0 +1,4 @@
+/** Svelte readable store. @license Apache-2.0 */
+import { readable, type Readable } from 'svelte/store'; import type { ReadingSnapshot, RecitationObservation, QuranLocation } from '@atqan/qaraa-core'; import type { QaraaSession } from '@atqan/qaraa-client'; import { createAdapterController, type QaraaState } from '@atqan/qaraa-client';
+export interface QaraaStore extends Readable<QaraaState>{ submit(observation:RecitationObservation):Promise<ReadingSnapshot>;reset(location?:QuranLocation):Promise<ReadingSnapshot>;close():Promise<void>; }
+export function createQaraaStore(session:QaraaSession):QaraaStore { const controller=createAdapterController(session); const store=readable(controller.read(),set=>{controller.connect(); set(controller.read());const release=controller.subscribe(()=>set(controller.read()));return()=>{release();void controller.dispose();};}); return Object.assign(store,{submit:controller.submit,reset:controller.reset,close:controller.close}); }

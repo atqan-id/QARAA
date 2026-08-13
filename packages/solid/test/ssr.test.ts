@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { createQaraaSession } from '../src/index.ts'; test('exports an SSR-safe owner primitive',()=>assert.equal(typeof createQaraaSession,'function'));

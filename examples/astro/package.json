@@ -1,0 +1,1 @@
+{"name":"@atqan/qaraa-example-astro","private":true,"type":"module","scripts":{"build":"ASTRO_TELEMETRY_DISABLED=1 astro build","test":"node --test test/*.test.ts"},"dependencies":{"@atqan/qaraa-client":"workspace:*","@atqan/qaraa-lit":"workspace:*"}}

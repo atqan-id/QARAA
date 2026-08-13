@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { QaraaSessionController } from '../src/index.ts'; test('exports an SSR-safe controller',()=>assert.equal(typeof QaraaSessionController,'function'));

@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { createExampleServer } from '../src/server.ts'; test('creates an embeddable server without binding a port',async()=>{const server=createExampleServer();assert.ok(server);await server.close();});

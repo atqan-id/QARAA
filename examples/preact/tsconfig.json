@@ -1,0 +1,1 @@
+{"extends":"../../tsconfig.base.json","compilerOptions":{"allowImportingTsExtensions":true,"jsx":"react-jsx","jsxImportSource":"preact","paths":{"@atqan/qaraa-preact":["../../packages/preact/src/index.ts"]}},"include":["src/**/*.ts","src/**/*.tsx"]}

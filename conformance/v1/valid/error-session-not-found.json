@@ -1,0 +1,9 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-missing-session",
+  "type": "error",
+  "code": "SESSION_NOT_FOUND",
+  "message": "Session was not found",
+  "retryable": false,
+  "details": { "sessionId": "session-missing" }
+}

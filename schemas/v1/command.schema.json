@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:protocol:v1:command",
+  "title": "QARAA Command Envelope v1",
+  "oneOf": [
+    { "$ref": "#/$defs/sessionCreate" },
+    { "$ref": "#/$defs/sessionGet" },
+    { "$ref": "#/$defs/sessionReset" },
+    { "$ref": "#/$defs/sessionDelete" },
+    { "$ref": "#/$defs/observationSubmit" },
+    { "$ref": "#/$defs/sessionResume" }
+  ],
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surah", "ayah", "word", "symbol"],
+      "properties": {
+        "surah": { "type": "integer", "minimum": 1 },
+        "ayah": { "type": "integer", "minimum": 1 },
+        "word": { "type": "integer", "minimum": 1 },
+        "symbol": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "phonemes"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "text": { "type": "string" },
+        "phonemes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "startMs": { "type": "number", "minimum": 0 },
+        "endMs": { "type": "number", "minimum": 0 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "sessionCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "corpusId"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.create" },
+        "corpusId": { "$ref": "#/$defs/nonEmptyString" },
+        "initialLocation": { "$ref": "#/$defs/location" },
+        "findingMode": { "enum": ["off", "substitutions"] }
+      }
+    },
+    "sessionGet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "sessionId"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.get" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "sessionReset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "sessionId"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.reset" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" },
+        "location": { "$ref": "#/$defs/location" }
+      }
+    },
+    "sessionDelete": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "sessionId"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.delete" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "observationSubmit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocolVersion",
+        "requestId",
+        "type",
+        "sessionId",
+        "observationId",
+        "sourceRevision",
+        "isFinal",
+        "receivedAtMs",
+        "tokens"
+      ],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "observation.submit" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" },
+        "observationId": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceRevision": { "type": "integer", "minimum": 0 },
+        "isFinal": { "type": "boolean" },
+        "receivedAtMs": { "type": "number", "minimum": 0 },
+        "tokens": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/token" }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "isFinal": { "const": false } },
+            "required": ["isFinal"]
+          },
+          "then": {
+            "properties": { "tokens": { "type": "array", "minItems": 1 } }
+          }
+        }
+      ]
+    },
+    "sessionResume": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocolVersion",
+        "requestId",
+        "type",
+        "sessionId",
+        "lastSnapshotRevision"
+      ],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.resume" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" },
+        "lastSnapshotRevision": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

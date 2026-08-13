@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:protocol:v1:event",
+  "title": "QARAA Event Envelope v1",
+  "oneOf": [
+    { "$ref": "#/$defs/sessionCreated" },
+    { "$ref": "#/$defs/snapshotUpdated" },
+    { "$ref": "#/$defs/sessionDeleted" },
+    { "$ref": "urn:atqan:qaraa:protocol:v1:error" }
+  ],
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "sessionCreated": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "sessionId", "snapshot"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.created" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" },
+        "snapshot": { "$ref": "urn:atqan:qaraa:protocol:v1:snapshot" }
+      }
+    },
+    "snapshotUpdated": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "sessionId", "snapshot"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "snapshot.updated" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" },
+        "snapshot": { "$ref": "urn:atqan:qaraa:protocol:v1:snapshot" }
+      }
+    },
+    "sessionDeleted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocolVersion", "requestId", "type", "sessionId"],
+      "properties": {
+        "protocolVersion": { "const": 1 },
+        "requestId": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "const": "session.deleted" },
+        "sessionId": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    }
+  }
+}

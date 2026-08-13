@@ -1,0 +1,10 @@
+{
+  "corpusId": "invalid-graph",
+  "revision": "1",
+  "symbols": [
+    { "id": "s-1", "text": "بِ", "phoneme": "bi", "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 } }
+  ],
+  "words": [
+    { "id": "w-1", "text": "بِ", "symbolIds": ["s-1", "s-missing"], "location": { "surah": 1, "ayah": 1, "word": 1 } }
+  ]
+}

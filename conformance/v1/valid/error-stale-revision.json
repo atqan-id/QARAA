@@ -1,0 +1,9 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-stale",
+  "type": "error",
+  "code": "STALE_REVISION",
+  "message": "Observation revision is stale",
+  "retryable": false,
+  "details": { "receivedRevision": 3, "currentRevision": 5 }
+}

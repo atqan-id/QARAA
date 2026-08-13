@@ -1,0 +1,16 @@
+{
+  "observationId": "observation-final-1",
+  "sourceRevision": 1,
+  "isFinal": true,
+  "receivedAtMs": 1200,
+  "tokens": [
+    {
+      "id": "token-1",
+      "text": "بِسْمِ",
+      "phonemes": ["bi", "s", "mi"],
+      "startMs": 0,
+      "endMs": 900,
+      "confidence": 0.98
+    }
+  ]
+}

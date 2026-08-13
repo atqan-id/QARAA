@@ -1,0 +1,12 @@
+{
+  "license": "Apache-2.0",
+  "fixtureKind": "synthetic",
+  "fixtureId": "backward-reread",
+  "symbolCount": 4096,
+  "ayahSize": 256,
+  "phonemeCycleLength": 127,
+  "initialSymbol": 2048,
+  "forwardPhonemeCount": 20,
+  "rereadStartSymbol": 1800,
+  "rereadPhonemeCount": 8
+}

@@ -1,0 +1,47 @@
+name: adapter compatibility
+on: [push, pull_request]
+jobs:
+  current:
+    strategy:
+      matrix:
+        node: [22, 24]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm check
+      - run: pnpm test:adapters
+      - run: pnpm examples:build
+      - run: pnpm examples:smoke
+      - run: pnpm run audit
+      - run: pnpm tarball:smoke
+
+  minimum-peers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Install minimum supported framework peers
+        run: >-
+          pnpm add -Dw --lockfile=false
+          react@18.3.1 @types/react@18.3.1
+          react-dom@18.3.1 @types/react-dom@18.3.1
+          preact@10.24.3 vue@3.4.38
+          @angular/core@20.3.27 @angular/compiler@20.3.27
+          @angular/common@20.3.27 @angular/platform-browser@20.3.27
+          @angular/compiler-cli@20.3.27 ng-packagr@20.3.0 rxjs@7.4.0
+          typescript@5.9.3
+          svelte@5.0.5 solid-js@1.8.23 lit@3.2.1
+      - run: pnpm --filter @atqan/qaraa-core build
+      - run: pnpm --filter @atqan/qaraa-protocol build
+      - run: pnpm --filter @atqan/qaraa-client build
+      - run: pnpm --filter './packages/{react,preact,vue,angular,svelte,solid,lit}' check

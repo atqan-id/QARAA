@@ -1,0 +1,1 @@
+{"name":"@atqan/qaraa-example-sveltekit","private":true,"type":"module","scripts":{"build":"svelte-kit sync && vite build","test":"node --test test/*.test.ts"},"dependencies":{"@atqan/qaraa-client":"workspace:*","@atqan/qaraa-svelte":"workspace:*"}}

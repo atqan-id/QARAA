@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:protocol:v1:snapshot",
+  "title": "QARAA Reading Snapshot v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["revision", "observationId", "display", "commit", "confidence", "finding"],
+  "properties": {
+    "revision": { "type": "integer", "minimum": 0 },
+    "observationId": {
+      "oneOf": [
+        { "$ref": "#/$defs/nonEmptyString" },
+        { "type": "null" }
+      ]
+    },
+    "display": { "$ref": "#/$defs/display" },
+    "commit": { "$ref": "#/$defs/commit" },
+    "confidence": {
+      "oneOf": [
+        { "$ref": "#/$defs/confidence" },
+        { "type": "null" }
+      ]
+    },
+    "finding": {
+      "oneOf": [
+        { "$ref": "#/$defs/finding" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surah", "ayah", "word", "symbol"],
+      "properties": {
+        "surah": { "type": "integer", "minimum": 1 },
+        "ayah": { "type": "integer", "minimum": 1 },
+        "word": { "type": "integer", "minimum": 1 },
+        "symbol": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "display": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["location", "isReread", "activeWordId"],
+      "properties": {
+        "location": { "$ref": "#/$defs/location" },
+        "isReread": { "type": "boolean" },
+        "activeWordId": {
+          "oneOf": [
+            { "$ref": "#/$defs/nonEmptyString" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "commit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["location", "completedWordIds"],
+      "properties": {
+        "location": { "$ref": "#/$defs/location" },
+        "completedWordIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alignment",
+        "stability",
+        "lookahead",
+        "matchedLookaheadCount",
+        "margin",
+        "acoustic",
+        "combined"
+      ],
+      "properties": {
+        "alignment": { "type": "number", "minimum": 0, "maximum": 1 },
+        "stability": { "type": "number", "minimum": 0, "maximum": 1 },
+        "lookahead": { "type": "number", "minimum": 0, "maximum": 1 },
+        "matchedLookaheadCount": { "type": "integer", "minimum": 0 },
+        "margin": { "type": "number", "minimum": 0 },
+        "acoustic": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "combined": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "substitutionOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "actualIndex", "referenceIndex", "score"],
+      "properties": {
+        "kind": { "const": "substitution" },
+        "actualIndex": { "type": "integer", "minimum": 0 },
+        "referenceIndex": { "type": "integer", "minimum": 0 },
+        "score": { "type": "number" }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "confirmation",
+        "observationId",
+        "operation",
+        "actualPhoneme",
+        "referencePhoneme",
+        "referenceSymbolId",
+        "location",
+        "confidence",
+        "confirmations"
+      ],
+      "properties": {
+        "type": { "const": "substitution" },
+        "confirmation": { "enum": ["immediate", "final", "soft"] },
+        "observationId": { "$ref": "#/$defs/nonEmptyString" },
+        "operation": { "$ref": "#/$defs/substitutionOperation" },
+        "actualPhoneme": { "type": "string" },
+        "referencePhoneme": { "type": "string" },
+        "referenceSymbolId": { "$ref": "#/$defs/nonEmptyString" },
+        "location": { "$ref": "#/$defs/location" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "confirmations": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

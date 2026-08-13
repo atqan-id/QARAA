@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { runLocalExample } from '../src/main.ts'; test('submits one local fixture observation',async()=>assert.equal(await runLocalExample(),1));

@@ -1,0 +1,6 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-create",
+  "type": "session.create",
+  "corpusId": "minimal-quran"
+}

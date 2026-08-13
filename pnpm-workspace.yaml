@@ -1,0 +1,14 @@
+packages:
+  - packages/*
+  - benchmarks
+  - examples/*
+
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+
+overrides:
+  '@typescript/old': npm:typescript@6.0.2
+  cookie@0.6.0: 0.7.2
+  sharp@0.34.5: 0.35.3

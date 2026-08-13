@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@atqan/qaraa-core": ["../core/src/index.ts"]
+    }
+  },
+  "include": [
+    "src/errors.ts",
+    "src/messages.ts",
+    "src/version.ts",
+    "type-contract/**/*.ts"
+  ]
+}

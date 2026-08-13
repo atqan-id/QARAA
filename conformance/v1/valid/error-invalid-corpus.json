@@ -1,0 +1,9 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-invalid-corpus",
+  "type": "error",
+  "code": "INVALID_CORPUS",
+  "message": "Corpus payload is invalid",
+  "retryable": false,
+  "details": { "kind": "schema-validation" }
+}

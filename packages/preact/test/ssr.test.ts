@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { useQaraaSession } from '../src/index.ts'; test('exports an SSR-safe hook without evaluation side effects',()=>assert.equal(typeof useQaraaSession,'function'));

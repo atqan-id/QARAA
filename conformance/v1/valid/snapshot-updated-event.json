@@ -1,0 +1,29 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-observation",
+  "type": "snapshot.updated",
+  "sessionId": "session-1",
+  "snapshot": {
+    "revision": 1,
+    "observationId": "observation-stream-1",
+    "display": {
+      "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 2 },
+      "isReread": false,
+      "activeWordId": "w:1:1:1"
+    },
+    "commit": {
+      "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 },
+      "completedWordIds": []
+    },
+    "confidence": {
+      "alignment": 1,
+      "stability": 0.5,
+      "lookahead": 0.5,
+      "matchedLookaheadCount": 1,
+      "margin": 0.2,
+      "acoustic": null,
+      "combined": 0.635
+    },
+    "finding": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "revision": 0,
+  "observationId": null,
+  "display": {
+    "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 },
+    "isReread": false,
+    "activeWordId": null
+  },
+  "commit": {
+    "location": { "surah": 1, "ayah": 1, "word": 1, "symbol": 1 },
+    "completedWordIds": []
+  },
+  "confidence": null,
+  "finding": null
+}

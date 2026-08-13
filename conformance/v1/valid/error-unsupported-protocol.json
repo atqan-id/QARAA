@@ -1,0 +1,9 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-version",
+  "type": "error",
+  "code": "UNSUPPORTED_PROTOCOL",
+  "message": "Protocol version is not supported",
+  "retryable": false,
+  "details": { "receivedVersion": 2, "supportedVersions": [1] }
+}

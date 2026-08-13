@@ -1,0 +1,13 @@
+{
+  "protocolVersion": 1,
+  "maxMessageBytes": 1048576,
+  "cases": [
+    {"id":"submit-idempotency","expect":"transport replay uses byte-identical request and observationId"},
+    {"id":"reset-reuse-id","expect":"successful reset clears locally acknowledged observation IDs so the ID can be reused"},
+    {"id":"stale-delayed-revision","expect":"snapshot revisions at or below the accepted revision are suppressed"},
+    {"id":"reconnect-resume","expect":"reconnect uses lastSnapshotRevision equal to the last accepted revision"},
+    {"id":"close-queued-work","expect":"close cancels reconnect delay and prevents queued requests or events"},
+    {"id":"uniform-limits","expect":"HTTP response and WebSocket message bodies above maxMessageBytes fail before decode"},
+    {"id":"ambiguous-mutation","expect":"reset and delete are not replayed after ambiguous transport failure"}
+  ]
+}

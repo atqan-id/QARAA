@@ -1,0 +1,9 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-internal",
+  "type": "error",
+  "code": "INTERNAL_ERROR",
+  "message": "An internal error occurred",
+  "retryable": true,
+  "details": {}
+}

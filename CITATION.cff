@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use QARAA in research, cite this software metadata and the exact repository revision you evaluated."
+type: software
+title: "QARAA"
+abstract: "Qur’an recitation alignment library for real-time word tracking, phoneme-aware matching, confidence-gated error detection, and stable reading progress."
+authors:
+  - name: "ATQAN"
+version: 0.1.0
+license: Apache-2.0

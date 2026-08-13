@@ -1,0 +1,12 @@
+name: qaraa_client
+description: Typed protocol-v1 client for a remote QARAA server.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+dependencies:
+  http: ^1.6.0
+  web_socket_channel: ^3.0.3
+dev_dependencies:
+  lints: ^6.0.0
+  test: 1.30.0

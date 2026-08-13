@@ -1,0 +1,6 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-get",
+  "type": "session.get",
+  "sessionId": "session-1"
+}

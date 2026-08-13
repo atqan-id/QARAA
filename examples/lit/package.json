@@ -1,0 +1,1 @@
+{"name":"@atqan/qaraa-example-lit","private":true,"type":"module","scripts":{"build":"vite build","test":"node --test test/*.test.ts"},"dependencies":{"@atqan/qaraa-client":"workspace:*","@atqan/qaraa-lit":"workspace:*","@atqan/qaraa-example-fixture":"workspace:*"}}

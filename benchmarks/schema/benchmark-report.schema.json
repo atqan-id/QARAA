@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:benchmark-report:v1",
+  "title": "QARAA synthetic benchmark report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runtime", "config", "scenarios"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "v8", "platform", "architecture"],
+      "properties": {
+        "node": { "type": "string", "minLength": 1 },
+        "v8": { "type": "string", "minLength": 1 },
+        "platform": { "type": "string", "minLength": 1 },
+        "architecture": { "type": "string", "minLength": 1 }
+      }
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["warmups", "iterations"],
+      "properties": {
+        "warmups": { "type": "integer", "minimum": 0 },
+        "iterations": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scenario",
+          "medianMilliseconds",
+          "p95Milliseconds",
+          "heapDeltaBytes",
+          "candidateEvaluations",
+          "editCells",
+          "corpusSymbolsAccessed",
+          "corpusSymbolCount"
+        ],
+        "properties": {
+          "scenario": { "enum": [
+            "cold index creation",
+            "warm partial observation",
+            "fast multi-token observation",
+            "repeated-phrase location",
+            "backward reread",
+            "final commit"
+          ] },
+          "medianMilliseconds": { "type": "number", "minimum": 0 },
+          "p95Milliseconds": { "type": "number", "minimum": 0 },
+          "heapDeltaBytes": { "type": "integer" },
+          "candidateEvaluations": { "type": "integer", "minimum": 0, "maximum": 64 },
+          "editCells": { "type": "integer", "minimum": 0 },
+          "corpusSymbolsAccessed": { "type": "integer", "minimum": 0 },
+          "corpusSymbolCount": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

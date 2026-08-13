@@ -1,0 +1,7 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-resume",
+  "type": "session.resume",
+  "sessionId": "session-1",
+  "lastSnapshotRevision": 7
+}

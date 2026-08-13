@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { createQaraaStore } from '../src/index.ts'; test('exports an SSR-safe store factory',()=>assert.equal(typeof createQaraaStore,'function'));

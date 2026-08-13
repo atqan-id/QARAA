@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:protocol:v1:observation",
+  "title": "QARAA Recitation Observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["observationId", "sourceRevision", "isFinal", "receivedAtMs", "tokens"],
+  "properties": {
+    "observationId": { "$ref": "#/$defs/nonEmptyString" },
+    "sourceRevision": { "type": "integer", "minimum": 0 },
+    "isFinal": { "type": "boolean" },
+    "receivedAtMs": { "type": "number", "minimum": 0 },
+    "tokens": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/token" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "isFinal": { "const": false } },
+        "required": ["isFinal"]
+      },
+      "then": {
+        "properties": { "tokens": { "type": "array", "minItems": 1 } }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "phonemes"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "text": { "type": "string" },
+        "phonemes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "startMs": { "type": "number", "minimum": 0 },
+        "endMs": { "type": "number", "minimum": 0 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

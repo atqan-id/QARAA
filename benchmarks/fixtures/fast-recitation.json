@@ -1,0 +1,12 @@
+{
+  "license": "Apache-2.0",
+  "fixtureKind": "synthetic",
+  "fixtureId": "fast-recitation",
+  "symbolCount": 4096,
+  "ayahSize": 256,
+  "phonemeCycleLength": 127,
+  "initialSymbol": 2048,
+  "partialPhonemeCount": 8,
+  "fastPhonemeCount": 20,
+  "finalPhonemeCount": 8
+}

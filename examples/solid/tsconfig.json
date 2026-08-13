@@ -1,0 +1,1 @@
+{"extends":"../../tsconfig.base.json","compilerOptions":{"allowImportingTsExtensions":true,"lib":["ES2022","DOM"],"paths":{"@atqan/qaraa-solid":["../../packages/solid/src/index.ts"]}},"include":["src/**/*.ts"]}

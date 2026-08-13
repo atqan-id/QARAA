@@ -1,0 +1,12 @@
+{
+  "protocolVersion": 1,
+  "requestId": "request-invalid-observation",
+  "type": "error",
+  "code": "INVALID_OBSERVATION",
+  "message": "Observation payload is invalid",
+  "retryable": false,
+  "details": {
+    "kind": "schema-validation",
+    "fields": ["sourceRevision"]
+  }
+}

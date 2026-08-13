@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:atqan:qaraa:protocol:v1:corpus",
+  "title": "QARAA Quran Corpus v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["corpusId", "revision", "symbols", "words"],
+  "properties": {
+    "corpusId": { "$ref": "#/$defs/nonEmptyString" },
+    "revision": { "$ref": "#/$defs/nonEmptyString" },
+    "symbols": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/symbol" }
+    },
+    "words": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/word" }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surah", "ayah", "word", "symbol"],
+      "properties": {
+        "surah": { "type": "integer", "minimum": 1 },
+        "ayah": { "type": "integer", "minimum": 1 },
+        "word": { "type": "integer", "minimum": 1 },
+        "symbol": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "wordLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surah", "ayah", "word"],
+      "properties": {
+        "surah": { "type": "integer", "minimum": 1 },
+        "ayah": { "type": "integer", "minimum": 1 },
+        "word": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "symbol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "phoneme", "location"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "text": { "type": "string" },
+        "phoneme": { "$ref": "#/$defs/nonEmptyString" },
+        "location": { "$ref": "#/$defs/location" }
+      }
+    },
+    "word": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "symbolIds", "location"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "text": { "type": "string" },
+        "symbolIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "location": { "$ref": "#/$defs/wordLocation" }
+      }
+    }
+  }
+}
