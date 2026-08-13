@@ -1,5 +1,9 @@
 # QARAA
 
+<p align="center">
+  <img src="docs/assets/support-heart.svg" alt="ATQAN support heart" width="96" />
+</p>
+
 *Bismillāh ir-Raḥmān ir-Raḥīm.*
 
 QARAA is an Apache-2.0 library and protocol toolkit for deterministic Qur’an
